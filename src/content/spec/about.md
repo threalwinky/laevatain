@@ -1,9 +1,12 @@
 # About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
+This is the blog of [laevatain](https://ctftime.org/) team from [VNU-HCM UIT](https://www.uit.edu.vn/)
 
-::github{repo="saicaca/fuwari"}
+CTFtime: https://ctftime.org/team/369034
 
-> ### Sources of images used in this site
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
+Our members:
+
+* fuyosuru (Rev)
+* Kuro0 (Pwn)
+* K9t (Forensics)
+* L1ttl3 (Crypto)
+* winky (Web)
