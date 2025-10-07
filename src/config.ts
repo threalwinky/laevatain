@@ -31,11 +31,11 @@ export const siteConfig: SiteConfig = {
 	},
 	favicon: [
 		// Leave this array empty to use the default favicon
-		// {
-		//   src: '/favicon/icon.png',    // Path of the favicon, relative to the /public directory
-		//   theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
-		//   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
-		// }
+		{
+		  src: '/favicon/favicon.ico',    // Path of the favicon, relative to the /public directory
+		  theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
+		  sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
+		}
 	],
 };
 
@@ -44,11 +44,11 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Home,
 		LinkPreset.Archive,
 		LinkPreset.About,
-		// {
-		// 	name: "GitHub",
-		// 	url: "https://github.com/saicaca/fuwari", // Internal links should not include the base path, as it is automatically added
-		// 	external: true, // Show an external link icon and will open in a new tab
-		// },
+		{
+			name: "CTFtime",
+			url: "https://ctftime.org/team/369034", // Internal links should not include the base path, as it is automatically added
+			external: true, // Show an external link icon and will open in a new tab
+		},
 	],
 };
 
@@ -57,23 +57,37 @@ export const profileConfig: ProfileConfig = {
 	name: "laevatain a.k.a laviem",
 	bio: "A CTF team of VNU-HCM UIT",
 	links: [
-		{
-			name: "Twitter",
-			icon: "fa6-brands:twitter", // Visit https://icones.js.org/ for icon codes
-			// You will need to install the corresponding icon set if it's not already included
-			// `pnpm add @iconify-json/<icon-set-name>`
-			url: "https://twitter.com",
-		},
-		{
-			name: "Steam",
-			icon: "fa6-brands:steam",
-			url: "https://store.steampowered.com",
-		},
-		{
-			name: "GitHub",
-			icon: "fa6-brands:github",
-			url: "https://github.com/saicaca/fuwari",
-		},
+		// {
+		// 	name: "CTFtime",
+		// 	icon: "fa6-regular:flag", // Visit https://icones.js.org/ for icon codes
+		// 	// You will need to install the corresponding icon set if it's not already included
+		// 	// `pnpm add @iconify-json/<icon-set-name>`
+		// 	url: "https://ctftime.org/team/369034",
+		// },
+		// {
+		// 	name: "HackMD",
+		// 	icon: "fa6-regular:pen-to-square", // Visit https://icones.js.org/ for icon codes
+		// 	// You will need to install the corresponding icon set if it's not already included
+		// 	// `pnpm add @iconify-json/<icon-set-name>`
+		// 	url: "https://hackmd.io/@laevatain",
+		// },
+		// {
+		// 	name: "Twitter",
+		// 	icon: "fa6-brands:twitter", // Visit https://icones.js.org/ for icon codes
+		// 	// You will need to install the corresponding icon set if it's not already included
+		// 	// `pnpm add @iconify-json/<icon-set-name>`
+		// 	url: "https://twitter.com",
+		// },
+		// {
+		// 	name: "Steam",
+		// 	icon: "fa6-brands:steam",
+		// 	url: "https://store.steampowered.com",
+		// },
+		// {
+		// 	name: "GitHub",
+		// 	icon: "fa6-brands:github",
+		// 	url: "https://github.com/saicaca/fuwari",
+		// },
 	],
 };
 

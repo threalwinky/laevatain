@@ -1,5 +1,5 @@
 # About
-This is the blog of [laevatain](https://ctftime.org/) team from [VNU-HCM UIT](https://www.uit.edu.vn/)
+This is the blog of [laevatain](https://ctftime.org/team/369034) team from [VNU-HCM UIT](https://www.uit.edu.vn/)
 
 CTFtime: https://ctftime.org/team/369034
 
