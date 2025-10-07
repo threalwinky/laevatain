@@ -725,7 +725,7 @@ Flag: `Securinets{floats_in_js_xddddd}`
 
 ## XTaSy
 Source code:
-```python=
+```python
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 import os, json
 from secret import FLAG
@@ -824,7 +824,7 @@ if __name__ == '__main__':
 ![image](https://hackmd.io/_uploads/B1Bj0yMalg.png)
 
 Đây là sơ đồ mã hóa một khối của `AES-XTS`, giá trị khóa `key` ban đầu nhận 64 bytes sau đó được chia ra làm 2 khóa `key1 = key[:32], key2 = key[32:]`, `key1` sẽ được giữ để mã hóa plaintext, còn `key2` sử dụng để mã hóa `tweak` ban đầu. Sau đó, với mỗi block 16 bytes, lấy `tweak` XOR với plaintext sau đó đi qua hàm mã hóa rồi lại XOR với `tweak` để tạo ra ciphertext. Sau khi mã hóa xong một block, giá trị `tweak` sẽ được tính lại dựa trên công thức như sau:
-```python=
+```python
 def _calculate_next_tweak(self, tweak):
         next_tweak = bytearray()
 
@@ -845,7 +845,7 @@ def _calculate_next_tweak(self, tweak):
 Vậy, thực ra đây là một kiểu mã hóa `AES` độc lập với từng block, tức là các block nằm ở cùng một vị trí thì sẽ được mã hóa với cùng 1 `key` (giống với `AES-ECB`). 
 Một điểm đặc biết của loại mã hóa này đó là trường hợp mã hóa 2 block cuối cùng. 
 
-```python=
+```python
 def _process_data(self, data, encryptor, is_last_tweaks_in_order):
         tweak = self.tweak[:]
 
@@ -887,7 +887,7 @@ Giả sử ta có một payload như sau:
 0}
 ```
 Nếu gửi payload này lên server, ta được `token` gồm 3 block đầu tiên sẽ được mã hóa đúng với `key` tương ứng với block đó. Như vì block cuối `}0` có độ dài < 16 nên 2 block cuối sẽ được tính kiểu khác. (đoạn code dưới mô phỏng việc mã hóa đối với payload trên).
-```python=
+```python
 partial_length = len(blocks[4]) # = 2
 cc = enc(blocks[3], tweak[3])
 pp = blocks[4] + cc[2:]
@@ -911,7 +911,7 @@ Việc đơn giản chỉ là gửi thêm một payload khác có block `1111111
 Nếu gửi payload như này, ta đã biết được `enc(blocks[4], tweak[4])` là gì rồi. Giờ thì ghép nó vào với `cc` vào 3 blocks đầu tiên, gửi lên server và lầy `flag`.
 
 Solve script:
-```python=
+```python
 from pwn import *
 import json
 
@@ -964,7 +964,7 @@ Flag: `Securients{d14aa3a9de9dd427842386dbedcecf16ac50e38fd8ff49d17531281ed6f4bd
 
 ## Fl1pper Zer0
 Source code:
-```python=
+```python
 from Crypto.Util.number import long_to_bytes, bytes_to_long, inverse
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
@@ -1102,16 +1102,16 @@ Bug trong bài này đó chính là `reuse nonce` của `AES-GCM`, khi đó ta c
 
 Sau khi có được 2 giá trị đó, ta hoàn toàn có thể tạo `tag` cho `ciphertext = ""`. Mục đích làm như vậy là để khi giải mã `AES-GCM`, giá trị `sk` của ta sẽ là `0`,
 Khi đó hàm `sign` của ta sẽ có:
-\begin{gather}
+$$
 s = k^{-1} \cdot (z + r \cdot privkey) \bmod \text{order} \\
 s = k^{-1} \cdot (z + r \cdot 0) \bmod \text{order} \\
 s = k^{-1} \cdot z \bmod \text{order} \\
 \Rightarrow k = z \cdot s^{-1} \bmod \text{order}
-\end{gather}
+$$
 Vậy là ta đã có thể recover lại được giá trị `k`. Và ta đã biết `k = random.randrange(1, self.order - 1)`. Đến đây ta sẽ dùng `predict MT19937` để crack random, từ đó sinh ra giá trị tiếp theo của `privatekey`, lấy nó và giải mã `flag`.
 
 Solve script:
-```python=
+```python
 import json
 import forbidden_attack
 from pwn import *
