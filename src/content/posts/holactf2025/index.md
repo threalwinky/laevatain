@@ -95,7 +95,7 @@ Trường Đại học Công nghệ thông tin và Truyền thông Việt- Hàn
 
 Bật F12 và tìm kiếm flag
 
-![image](https://hackmd.io/_uploads/S1-6l4W5lg.png)
+![image](./images/image0.png)
 
 ## Misc/LunaDB
 
@@ -283,7 +283,7 @@ def special_filter(user_input):
 
 Vì filter khá chặt nên mình xài 1 tool để gen payload: https://github.com/Marven11/Fenjing
 
-![image](https://hackmd.io/_uploads/SkXTYmb9gg.png)
+![image](./images/image1.png)
 
 Ok và đã có payload SSTI để đọc flag nhưng vẫn còn bị dính `cycler` nên mình đổi thành `range`. Và payload SSTI cuối cùng mình có được là:
 
@@ -442,7 +442,7 @@ Content-Type: image/png
 ------WebKitFormBoundaryD2405lXP1DjzWdZo--
 ```
 
-![image](https://hackmd.io/_uploads/ByOzy4-9ge.png)
+![image](./images/image2.png)
 
 ## web/Sanity Check
 

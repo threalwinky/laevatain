@@ -163,37 +163,37 @@ POC:
 
 * Đăng ký account với role editor
 
-![image](https://hackmd.io/_uploads/ryFpuxZTll.png)
+![image](./images/image0.png)
 
 * Bây giờ ta có thể dễ dàng đọc thông tin thông qua UUID
 
-![image](https://hackmd.io/_uploads/B1lbKl-Teg.png)
+![image](./images/image1.png)
 
 * Thử publish với collaborator là `admin`
 
-![image](https://hackmd.io/_uploads/rkKrYl-axg.png)
+![image](./images/image2.png)
 
 * Vào `collaborations` và thấy một request collaborator
  
-![image](https://hackmd.io/_uploads/HkDDFlWale.png)
+![image](./images/image3.png)
 
 * Accept bằng 1 post request như sau
  
-![image](https://hackmd.io/_uploads/SJSJsebaeg.png)
+![image](./images/image4.png)
 
 * Tới đây ta vào post vừa mới đăng và có amdin collab và đã leak được UUID
  
-![image](https://hackmd.io/_uploads/HJpmsxZagg.png)
+![image](./images/image5.png)
  
-![image](https://hackmd.io/_uploads/BJsGjeWpxg.png)
+![image](./images/image6.png)
 
 * Đọc thông tin của user admin
 
-![image](https://hackmd.io/_uploads/Sykvigbaex.png)
+![image](./images/image7.png)
 
 * Đăng nhập vào admin
 
-![image](https://hackmd.io/_uploads/BkO9jxbale.png)
+![image](./images/image8.png)
 
 Vậy là ta đã vào được admin panel. Tới đây thì mình thấy có endpoint bị SSTI nhưng mà filter này nohope quá nên mình skip
 
@@ -238,29 +238,29 @@ def ban_user():
 
 Ta cũng thấy có `/db` và `/data` khá khả nghi nên mình thử vào
 
-![image](https://hackmd.io/_uploads/HyEP2gZTgx.png)
+![image](./images/image9.png)
 
 
-![image](https://hackmd.io/_uploads/BkPIhlW6le.png)
+![image](./images/image10.png)
 
  
 File `secrets.zip` cần password nên mình khá chắc flag nằm trong này. Lúc này chỉ cần tìm password thui
 
-![image](https://hackmd.io/_uploads/Bk2Yng-pgg.png)
+![image](./images/image11.png)
 
 Thông tin trong old.db có phần password nhưng bị hash hết rồi nên mình skip
 
-![image](https://hackmd.io/_uploads/HkWypeZ6gg.png)
+![image](./images/image12.png)
 
 Thử tìm trong file `dbconnect.exe` xem
 
-![image](https://hackmd.io/_uploads/Bkpuaeb6xe.png)
+![image](./images/image13.png)
 
 Password: `PUZZLE+7011_X207+!*`
 
 Đây rồiiii, mình thử extract và đã có flag
 
-![image](https://hackmd.io/_uploads/ry1JAeWTgx.png)
+![image](./images/image14.png)
 
 Flag: `Securinets{777_P13c3_1T_Up_T0G3Th3R}`
 
@@ -269,11 +269,11 @@ Flag: `Securinets{777_P13c3_1T_Up_T0G3Th3R}`
 
 Giao diện trang web:
 
-![image](https://hackmd.io/_uploads/HJCU-VZpll.png)
+![image](./images/image15.png)
 
 Sau khi đăng nhập:
 
-![image](https://hackmd.io/_uploads/r1wZfV-Teg.png)
+![image](./images/image16.png)
 
 Mình có thử XSS nhưng có lẽ đã bị escape. Mình thử đọc source và thấy có 2 chỗ có thể khai thác
 
@@ -363,17 +363,17 @@ fetch("/log/"+profileId, {
 
 Vậy là đã có hướng đi rồi chỉ cần report với `profileId` là `user/profile/?id=48/../../admin/addAdmin` là xong
 
-![image](https://hackmd.io/_uploads/HJlEsDNbTgg.png)
+![image](./images/image17.png)
 
 Khi vào lại thì ta đã leo thang thành công
 
-![image](https://hackmd.io/_uploads/HknnP4-6xx.png)
+![image](./images/image18.png)
 
 Ta có 2 tab được public ra là all msgs và all users
 
-![image](https://hackmd.io/_uploads/r1nd1H-Tlx.png)
+![image](./images/image19.png)
 
-![image](https://hackmd.io/_uploads/SkFYJrZ6ll.png)
+![image](./images/image20.png)
 
 mình tiếp tục đọc source và phát hiện ra hàm findall msgs
 
@@ -412,15 +412,15 @@ function filterBy(table, filterBy, keyword, paramIndexStart = 1) {
 
 Và chỗ này mình có thể dễ dãng SQL injection thông qua filterBy. Mình thử một payload sau `msg" like $1 or 1=1 --`
 
-![image](https://hackmd.io/_uploads/BkZjMSWpeg.png)
+![image](./images/image21.png)
 
 Và ta đã SQL injection thành công. Để leak flag thì mình có thể blind SQLI như sau `msg" like $1 or (select substring(flag,1,1)='S' from flags) --`
 
-![image](https://hackmd.io/_uploads/BknUNrb6gg.png)
+![image](./images/image22.png)
 
 Nếu ký tự khác thì sao ?
 
-![image](https://hackmd.io/_uploads/BkuKEHWaxl.png)
+![image](./images/image23.png)
 
 Ye quá ngon. Cứ tiếp tục thì ta sẽ tim được full flag
 
@@ -589,7 +589,7 @@ if __name__ == "__main__":
 
 Tóm tắt thì đây là challenge jail mà input mình nhập vào sẽ bị mã hoá caesar cipher ngầu nhiên
 
-![image](https://hackmd.io/_uploads/rJtwzZ-6gl.png)
+![image](./images/image24.png)
 
 Nếu như lệnh đó chạy được thì sẽ trả ra output eval của lệnh đó nếu không thì sẽ trả ra cipher. Ở đây challenge còn filter chỉ cho `Only [a-z] and []()~><*+` và eval trong builtins như thế này `eval(encoded, {"__builtins__": None}, {"flag": flag})`. Có một cái còn hi vọng là `flag` cũng được đưa vào builtins nên mình có thể leak từng char như sau `flag[0]`, `flag[1]`, ...
 
@@ -642,7 +642,7 @@ Phần `pay += "(((not())+(not()))**((not())+(not())+(not())+(not())))+".replace
 
 Và cuối cùng là sẽ chạy liên tục đến khi caesar mã hoá ra được `flag...` thì sẽ chạy được
 
-![image](https://hackmd.io/_uploads/H1c0Q--Tgx.png)
+![image](./images/image25.png)
 
 Đây là phần cuối của flag mà mình đã leak.
 
@@ -785,7 +785,7 @@ Tóm tắt thì challenge yêu cầu mình nhập hai số khác nhau, sau đó 
 
 Ban đầu mình fuzz thì thấy khi số và số + thêm 9 ở cuối thì sẽ trùng hash
 
-![image](https://hackmd.io/_uploads/Sygk---ael.png)
+![image](./images/image26.png)
 
 Tới đây mình có solve script sau:
 
@@ -806,7 +806,7 @@ print(p.recvall().decode())
 p.close()
 ```
 
-![image](https://hackmd.io/_uploads/Skr_ZWbaee.png)
+![image](./images/image27.png)
 
 Flag: `Securinets{floats_in_js_xddddd}`
 
@@ -910,7 +910,7 @@ if __name__ == '__main__':
 ```
 Để lấy được `flag` bài này, ta phải làm sao đó để có thể tạo được `payload` sao cho khi giải mã nó thì `"admin" != 0`. Vì quá trình encrypt và decrypt đều được thực hiện bởi `AES-XTS` nên ta hãy tìm hiểu xem cách hoạt động của nó như thế nào. 
 
-![image](https://hackmd.io/_uploads/B1Bj0yMalg.png)
+![image](./images/image28.png)
 
 Đây là sơ đồ mã hóa một khối của `AES-XTS`, giá trị khóa `key` ban đầu nhận 64 bytes sau đó được chia ra làm 2 khóa `key1 = key[:32], key2 = key[32:]`, `key1` sẽ được giữ để mã hóa plaintext, còn `key2` sử dụng để mã hóa `tweak` ban đầu. Sau đó, với mỗi block 16 bytes, lấy `tweak` XOR với plaintext sau đó đi qua hàm mã hóa rồi lại XOR với `tweak` để tạo ra ciphertext. Sau khi mã hóa xong một block, giá trị `tweak` sẽ được tính lại dựa trên công thức như sau:
 ```python
@@ -1187,7 +1187,7 @@ Phân tích: để lấy được `flag` bài này, ta phải biết được `p
 - `verify`: ta gửi các tham số lên để server verify `ECDSA`.
 
 Bug trong bài này đó chính là `reuse nonce` của `AES-GCM`, khi đó ta có thể dễ dàng recover lại được giá trị `H` và `E_k` (với `ciphertext` và `tag` đã biết).
-![image](https://hackmd.io/_uploads/r1bMibfalx.png)
+![image](./images/image29.png)
 
 Sau khi có được 2 giá trị đó, ta hoàn toàn có thể tạo `tag` cho `ciphertext = ""`. Mục đích làm như vậy là để khi giải mã `AES-GCM`, giá trị `sk` của ta sẽ là `0`,
 Khi đó hàm `sign` của ta sẽ có:
@@ -1356,7 +1356,7 @@ __int64 __fastcall compress(_BYTE *a1, int a2, __int64 a3)
 }
 ```
 Ở hàm ta có thể thấy nó là một dạng nén data lại bằng cách đếm số lần xuất hiện liên tục của một byte rồi lưu lại theo dạng `<byte><số lần xuất hiện>`
-![image](https://hackmd.io/_uploads/Bkv3s4M6ee.png)
+![image](./images/image30.png)
 
 Ở đây có thể thấy có lỗi BOF ở đây do sau khi compress data được lưu thẳng vào stack qua `a3` mà không check -> ta đã có thể ghi đè return address và gọi hàm `win` có sẵn
 
@@ -1446,14 +1446,14 @@ Answer: `122b2b4bf1433341ba6e8fefd707379a98e6e9ca376340379ea42edb31a5dba2`
 ### 2. Identify the OS build number of the victim’s system?
 Tìm trên google, chúng ta sẽ biết được `OS build number` có thể tìm được trong `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion`. Như vậy, chúng ta sẽ cần extract file registry `Windows\System32\config\SOFTWARE` để lấy thông tin.
 Sử dụng [Registry Explorer](https://ericzimmerman.github.io/#!index.md) để parse thông tin, chúng ta sẽ thấy được `OS build number`.
-![image](https://hackmd.io/_uploads/r1SggLbTgg.png)
+![image](./images/image31.png)
 
 Answer: `19045`
 
 ### 3. What is the ip of the victim's machine?
 Tương tự khi tìm trên google sẽ biết được ip của máy sẽ nằm trong `HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Tcpip\Parameters\Interfaces`. Như vậy sẽ cần extract registry `Windows\System32\config\SYSTEM`.
 Parse thông tin từ registry `SYSTEM` theo path trên sẽ thấy được ip của máy nạn nhân.
-![image](https://hackmd.io/_uploads/rkcLbUWpxe.png)
+![image](./images/image32.png)
 
 Answer: `192.168.206.131`
 
@@ -1548,22 +1548,22 @@ Answer: `5000`
 
 ### 11. What is the url if the first Request made by the malware to the c2 server?
 Dựa theo trên Virus total và trong ida, chúng ta có thể suy đoán ra được first request
-![image](https://hackmd.io/_uploads/rJziWeMpeg.png)
-![image](https://hackmd.io/_uploads/B1Z3ZeG6ll.png)
-![image](https://hackmd.io/_uploads/HJvF-xMTgx.png)
+![image](./images/image33.png)
+![image](./images/image34.png)
+![image](./images/image35.png)
 
 Answer: `http://40.113.161.85:5000/helppppiscofebabe23`
 
 ### 12. The malware created a file to identify itself. What is the content of that file?
 Tìm kiếm thông tin trên [Virus total](https://www.virustotal.com/gui/file/be4f01b3d537b17c5ba7dc1bb7cd4078251364398565a0ca1e96982cff820b6d/behavior), ở phần `Files dropped` chúng ta sẽ thấy có một file tên là `id.txt`.
-![image](https://hackmd.io/_uploads/rJYNGgzTex.png)
+![image](./images/image36.png)
 Extract file đó ra từ `test.ad1`, chúng ta sẽ lấy được content.
 
 Answer: `3649ba90-266f-48e1-960c-b908e1f28aef`
 
 ### 13. Which registry key did the malware modify or add to maintain persistence?
 Ở phần `Registry Keys Set`, chúng ta sẽ thấy được có một registry được set với file malware, dùng để tạo persistence.
-![image](https://hackmd.io/_uploads/SyKrXxz6gx.png)
+![image](./images/image37.png)
 
 Answer: `HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\MyApp`
 
@@ -1574,7 +1574,7 @@ Answer: `C:\Users\ammar\Documents\sys.exe`
 
 ### 15. The malware uses a secret token to communicate with the C2 server. What is the value of this key?
 Ở câu này có thể string grep secret để ra key.
-![image](https://hackmd.io/_uploads/By_KHxG6ex.png)
+![image](./images/image38.png)
 
 Answer: `e7bcc0ba5fb1dc9cc09460baaa2a6986`
 
@@ -1584,7 +1584,7 @@ Answer: `e7bcc0ba5fb1dc9cc09460baaa2a6986`
 Bài này yêu cầu chúng ta giúp user mở khóa file bị mã hóa bởi program do bạn của user viết.
 Chúng ta sẽ được cung cấp hai file `disk.ad1` và `mem.vmem`.
 Trong file `disk.ad1` ở `[root]\Document and Settings\RagdollFan2025\Desktop`, chúng ta sẽ thấy được file `locker_sim.exe` và `to_encrypt.txt.enc` là file cần decrypt để lấy flag.
-![image](https://hackmd.io/_uploads/B1sd8Qzpxe.png)
+![image](./images/image39.png)
 
 Extract file `locker_sim.exe` và phân tích bằng ida.
 ```
@@ -1744,20 +1744,20 @@ Sau khi phân tích code, ta sẽ thấy được file mã hóa bằng aes cbc v
 key = sha256(argv[1]|computername|secret_part.txt`)
 iv = key[:16]
 ```
-![image](https://hackmd.io/_uploads/BJFFAVfael.png)
+![image](./images/image40.png)
 
-![image](https://hackmd.io/_uploads/HyXdRNfTll.png)
+![image](./images/image41.png)
 
 
-![image](https://hackmd.io/_uploads/Bk6qAEMpxl.png)
+![image](./images/image42.png)
 
-![image](https://hackmd.io/_uploads/HJAoC4Mpxl.png)
+![image](./images/image43.png)
 
-![image](https://hackmd.io/_uploads/SkSBbHMalx.png)
+![image](./images/image44.png)
 
 Vậy giờ chúng ta cần tìm các parts của key.
 Tìm `argv[1]` bằng cách dùng plugin `consoles` của vol2 với file `mem.vmem`, ở bài này file `.vmem` sử dụng `winxp`
-![image](https://hackmd.io/_uploads/BJwb4SGaxe.png)
+![image](./images/image45.png)
 ```
 vol2 -f mem.vmem --profile=WinXPSP3x86 consoles
 Volatility Foundation Volatility Framework 2.6
@@ -1826,7 +1826,7 @@ Values:
 REG_SZ        ComputerName    : (S) RAGDOLLF-F9AC5A
 ```
 Cuối cùng, chúng ta có thể tìm được content của `secret_part.txt` bằng cách tìm trong MFT trong `disk.ad1`
-![image](https://hackmd.io/_uploads/r1Ay5HMpxe.png)
+![image](./images/image46.png)
 ```
 argv[1] = hmmisitreallyts
 computer_name = RAGDOLLF-F9AC5A
