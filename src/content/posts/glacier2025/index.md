@@ -698,7 +698,7 @@ if __name__ == "__main__":
 # PWN
 ## pwn
 Source code:
-```cpp=
+```cpp
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -773,7 +773,7 @@ Và nó đây
 
 ## Wisdom
 Bài này cho chúng ta một file binary, khi sử dụng IDA, chúng ta sẽ thấy được có hàm `check_flag()`
-```cpp=
+```cpp
 _BOOL8 __fastcall check_flag(_BYTE *a1)
 {
   __int64 i; // rdx
