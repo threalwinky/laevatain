@@ -328,7 +328,7 @@ response = io.recvline().decode()
 
 ## Noisy Neighbour
 Source code:
-```python!
+```python
 import random
 from Crypto.Util.number import getPrime, long_to_bytes
 from Crypto.Cipher import AES
@@ -742,7 +742,7 @@ Bây giờ, chúng ta sẽ check offset giữa `buf` và return address. Có th�
 Vậy payload là `448 bytes junk` + `8 bytes rbp` + `win() address` + `202 bytes junk`.
 
 Solve Script:
-```python!
+```python
 from pwn import *
 
 s = remote('challs.glacierctf.com', 13388)
@@ -786,7 +786,7 @@ _BOOL8 __fastcall check_flag(_BYTE *a1)
 Chỉ cần extract các giá trị `MAGIC`, `KEY[]` và `FLAG` thì chúng ta có thể reverse lại được flag.
 
 Solve script:
-```python!
+```python
 from pwn import xor
 
 MAGIC = "5e"
@@ -1090,7 +1090,7 @@ Như vậy chúng ta sẽ cần sử dụng server DNS từ đề bài là `chal
 ![image](https://hackmd.io/_uploads/HyKCWM4-Wl.png)
 
 Solve script:
-```python!
+```python
 import dns.message
 import dns.query
 import dns.rdatatype
