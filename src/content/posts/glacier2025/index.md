@@ -13,7 +13,7 @@ draft: false
 
 ## C.M.P.R.W
 Source code:
-```python=
+```python
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
@@ -110,7 +110,7 @@ Bài này mình đã sử dụng `z3` để **symbolic** lại hàm `RNGesus` t�
 Sau khi thêm các ràng buộc vào thì mình `solver.check()` để tìm `seed` ban đầu. Khi đó mình đã kiểm soát được giá trị của hàm `RNGesus()` trả về sẽ là gì rồi. Bypass `n*2` vòng và lấy `Flag`.
 
 Solve script:
-```python=
+```python
 from pwn import *
 from z3 import *
 import time
@@ -209,7 +209,7 @@ if __name__ == "__main__":
 
 ## crypto
 Source code:
-```python=
+```python
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Respect the shebang and mark file as executable
@@ -297,7 +297,7 @@ Vì đây là mã hóa `AES-CBC`:
 Nên nếu ta thay 1 bytes ở `IV` thì bytes nằm ở vị trí tương ứng của `plaintext` sẽ cũng bị thay đổi. Từ đó ta chỉ cần tìm một giá trị thích hợp để sau khi mã hóa `admin=1` là được.
 
 Solve script:
-```python=
+```python
 import base64
 import json
 from pwn import *
@@ -370,7 +370,7 @@ e = e_0 + k \cdot \phi(N) \\
 Khi tính được $\phi(n)$ rồi thì việc còn lại rất đơn giản là giải RSA như thông thường.
 
 Solve script:
-```python=
+```python
 from Crypto.Util.number import *
 from Crypto.Cipher import AES
 
@@ -395,7 +395,7 @@ print(flag)
 
 ## AES zippy
 Source code: 
-```python=
+```python
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import os
@@ -515,7 +515,7 @@ Mục tiêu của chính là làm rò rỉ các chuỗi `Base64` của `nonce, t
 
 Sau khi recover được `nonce, tag` của `admin` rồi. Việc còn lại là sử dụng kĩ thuật `forge tag` của AES-GCM trong ngữ cảnh **reuse nonce**. 
 
-```python=
+```python
 from pwn import *
 import string
 import sys
